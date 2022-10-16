@@ -4,6 +4,13 @@ import pandas as pd
 
 
 class find_work(commands.Cog):
+    pd.set_option('display.unicode.ambiguous_as_wide',True)
+    pd.set_option('display.unicode.east_asian_width', True)
+    pd.set_option('display.max_rows', None)
+    # pd.set_option('display.max_columns', None)
+    # pd.set_option('display.width', None)
+    pd.set_option('display.max_colwidth', -1)
+
     def __init__(self, bot):
         self.bot = bot
     
@@ -72,7 +79,16 @@ class find_work(commands.Cog):
     async def list(self, ctx, columns:str = ""):
         df = pd.read_csv('Koala/Datas/CSV/Interview.csv', encoding='utf-8')  
         if columns == "":
-            await ctx.send(df)
+            await ctx.send("請參考: http://ehci.myselfnas.com:8081/")
+#             for i in range(len(df)):
+#                 await ctx.send(\
+# f"""公司:{df.loc[i]['公司']}
+# 職位:{df.loc[i]['職位']}
+# 是否筆試:{df.loc[i]['是否筆試']}
+# 考古題:{df.loc[i]['考古題']}
+# 心得:{df.loc[i]['心得']}
+# -------------------------------------------------------
+# """)
         else:
             await ctx.send("\n".join(set(df[f'{columns}'])))
 

@@ -4,6 +4,7 @@ from discord.ext import commands
 import discord
 import os
 import json
+from index import index
 # from cmds.user import user
 
 CommandPrefix = '!'
@@ -45,6 +46,8 @@ async def load_extensions():
 async def main():
     await load_extensions()
     await bot.start(jdata['TOKEN'])
+
+index()
 
 if __name__ == "__main__":
     bot.remove_command('help')

@@ -73,9 +73,13 @@ async def Run(ctx, sub_bot_name: str = ""):
 
 
 @bot.command(name='bash', description="Use the bash command from Discord_bot")
-async def bash(ctx, linux_command: str):
-    result = os.popen(linux_command)
-    await ctx.send(result.read())
+async def bash(ctx, *, linux_command: str):
+    if '戰地工程師執照' not in [y.name.lower() for y in ctx.message.author.roles]:
+        await ctx.send(f'<@!{ctx.author.id}> 你沒有戰地工程師執照，無法使用指令。')
+    else:
+        result = os.popen(linux_command)
+        await ctx.send(result.read())
+
 
 if __name__ == "__main__":
     bot.run(

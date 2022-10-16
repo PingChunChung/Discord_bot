@@ -1,0 +1,14 @@
+.box {
+    z-index: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    background-color: rgba(0, 255, 255, 0.3);
+    margin: 30px 80px 30px 80px
+}
+h1{
+  color: white;
+  text-align:left;
+  font-size:40px;
+  padding:40px;
+}

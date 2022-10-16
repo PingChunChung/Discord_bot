@@ -1,6 +1,6 @@
 from logging import exception
 from keep_alive import keep_alive
-from keep_alive import setUsers, setRows, setDatas
+from keep_alive import setUsers, setRows, setDatas, setAosUser
 # discord
 from discord.ext import commands
 import discord
@@ -21,32 +21,6 @@ import random
 # CSV
 import csv
 
-# https://discord-py-slash-command.readthedocs.io/_/downloads/en/latest/pdf/
-# slash
-'''
-#爬蟲 requset版
-import requests
-from bs4 import BeautifulSoup 
-
-#爬蟲
-r = requests.get("http://extreme-road.tv:8123/index.html") #將此頁面的HTML GET下來
-print(r.text) #印出HTML
-'''
-'''
-# 開啟網頁
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-
-driver = webdriver.Chrome(port=1234,options=chrome_options)
-#__init__(executable_path='chromedriver', port=0, options=None, service_args=None, desired_capabilities=None, service_log_path=None, chrome_options=None, keep_alive=True)
-driver.get("http://extreme-road.tv:8123/")
-#driver.get("https://www.google.com/")
-'''
-
 CommandPrefix = '!!'
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=CommandPrefix,
@@ -61,6 +35,9 @@ with open("./Datas/JSON/Setting.json", 'r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
     print(jdata)
 
+aos = []  # aos列表
+aosUser = []  # 隨機aos加入給users用
+
 ######備註#####
 #EVT==事件====#
 #CMD==指令====#
@@ -74,26 +51,28 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    # 所有用戶資料
-    print(bot.users)
+    print(bot.users)  # 所有用戶資料
+
     for i in bot.users:
         if i.avatar:
             print(i.avatar.url)
     # 設定使用者至網頁
-    setUsers(bot.users)
+
+    for line in open('./Datas/CSV/data-aos.csv', 'r'):
+        aos.append(line.strip())
+    for i in range(len(bot.users)-1):
+        print(i)
+        aosUser.append(aos[random.randint(0, len(aos)-1)])
+
     with open("./Datas/CSV/Developer.csv", "r", encoding="utf-8") as file:
         csv_file = csv.reader(file)
         for row in csv_file:
             data.append(row)
-        data.remove(['id', 'date', 'log'])
+        data.remove(['id', 'date', 'log','editor'])
+
+    setUsers(bot.users)
+    setAosUser(aosUser)
     setDatas(data)
-    '''
-  
-    with open("./Datas/CSV/Developer.csv", newline='') as csvfile:
-        # 讀取 CSV 檔案內容
-        rows = csv.DictReader(csvfile)
-        print(type(rows))
-    '''
     print('------------')
 
 
