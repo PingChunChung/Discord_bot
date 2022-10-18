@@ -1,8 +1,9 @@
 # Discord_bot
 利用主控機器人控制子機器人，不需要ssh進入即可下linux指令
 
-架設Discord聊天機器人，由於需要使機器人長期在線上，將程式設置在伺服器，但因安全問題無法從外部SSH進對方家中，因此設置一個架構能夠從對方的Bot(主控)直接控制我的Bot，能夠在Docker內部下Linux指令並回傳訊息至Discord。  
-能夠hotfix主控與子機器人，成功實現完全不需要進入伺服器中下指令即可更改機器人的功能。
+設置一個架構能夠從透過主控機器人控制子機器人，功能包括啟動、停止、重啟子機器人，能夠hotfix主控與子機器人，成功實現完全不需要進入伺服器中下指令即可更改機器人的功能。
+
+技術：Python、Flask、FastAPI
 
 ## 整體架構
 
@@ -26,3 +27,20 @@ Discord_bot-->BDSE26_work-->BDSE26_work/Main.py;
 BDSE26_work-->BDSE26_work/Keep_alive-->|喚醒|BDSE26_work/Main.py;
 
 Discord_bot-->others
+```
+
+## 使用方法
+把子機器人的檔案放到目錄中，進入伺服器啟動主控機器人，接著就可以在Discord中下指令
+```py
+啟動子機器人
+!!run XXX(子機器人目錄名稱)
+
+關閉子機器人
+!!stop XXX(子機器人目錄名稱)
+
+重啟子機器人(hotfix)
+!!rerun xxx(子機器人目錄名稱)
+
+下linxu指令
+!!bash xxxx(指令)
+
