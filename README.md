@@ -39,8 +39,8 @@ Discord_bot-->others
 !!stop XXX(子機器人目錄名稱)
 
 重啟子機器人(hotfix)
-!!rerun xxx(子機器人目錄名稱)
+!!rerun XXX(子機器人目錄名稱)
 
 下linxu指令
-!!bash xxxx(指令)
+!!bash XXXX(指令)
 
